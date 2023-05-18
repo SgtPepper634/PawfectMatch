@@ -20,10 +20,10 @@ def validate_age(value):
 
 # Create your models here.
 class User(models.Model):
-    first_name = models.CharField(max_length=255, default='TEMP')
-    last_name = models.CharField(max_length=255, default='TEMP')
-    email = models.EmailField(max_length=255, default='TEMP', unique=True)
-    phone = models.CharField(max_length=255, default='TEMP', unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
+    phone = models.CharField(max_length=255, unique=True)
     user_type = models.CharField(
         max_length=255,
         choices=[(tag.value, tag.name) for tag in UserTypes],
@@ -93,8 +93,11 @@ class User(models.Model):
         blank=True,
     )
 
-    address1 = models.CharField(max_length=255, default='TEMP')
-    address2 = models.CharField(max_length=255, default='TEMP')
-    city = models.CharField(max_length=255, default='TEMP')
-    state = models.CharField(max_length=255, default='TEMP')
+    address1 = models.CharField(max_length=255)
+    address2 = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
     zip = models.PositiveIntegerField(default=0)
+
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
