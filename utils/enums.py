@@ -13,6 +13,47 @@ class PetSpecies(Enum):
     DOG = 'Dog'
     CAT = 'Cat'
 
+class PetGender(Enum):
+    MALE = 'Male'
+    FEMALE = 'Female'
+
+class PetSizes(Enum):
+    SMALL = 'small'
+    MEDIUM = 'medium'
+    LARGE = 'large'
+    EXTRA_LARGE = 'xlarge'
+
+class PetStatuses(Enum):
+    ADOPTABLE = 'adoptable'
+    ADOPTED = 'adopted'
+    FOSTERABLE = 'fosterable'
+    FOSTERED = 'fostered'
+
+class DogCoats(Enum):
+    SHORT = "Short"
+    MEDIUM = "Medium"
+    LONG = "Long"
+    WIRE = "Wire"
+    CURLY = "Curly"
+    HAIRLESS = "Hairless"
+            
+class DogColors(Enum):
+    APRICOT = "Apricot / Beige"
+    BICOLOR = "Bicolor"
+    BLACK = "Black"
+    BRINDLE = "Brindle"
+    BROWN = "Brown / Chocolate"
+    GOLDEN = "Golden"
+    GRAY = "Gray / Blue / Silver"
+    HARLEQUIN = "Harlequin"
+    MERLE_BLUE = "Merle (Blue)"
+    MERLE_RED = "Merle (Red)"
+    RED = "Red / Chestnut / Orange"
+    SABLE = "Sable"
+    TRICOLOR = "Tricolor (Brown Black & White)"
+    WHITE = "White / Cream"
+    YELLOW = "Yellow / Tan / Blond / Fawn"
+
 class DogBreeds(Enum):
     LABRADOR_RETRIEVER = 'Labrador Retriever'
     GERMAN_SHEPHERD = 'German Shepherd'
@@ -247,7 +288,7 @@ class CatCharacteristics(Enum):
     RAGDOLL = 'Ragdoll'
     SPHYNX = 'Sphynx'
 
-# class CatTemperaments(Enum):
+class CatTemperaments(Enum):
     FRIENDLY = 'Friendly'
     AFFECTIONATE = 'Affectionate'
     PLAYFUL = 'Playful'
