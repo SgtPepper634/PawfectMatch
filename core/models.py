@@ -1,4 +1,4 @@
-from utils.enums import UserTypes, CarePreferences, PetSpecies, PetTemperaments, DogBreeds, DogCharacteristics, CatBreeds, CatCharacteristics
+from utils.enums import * #UserTypes, CarePreferences, PetSpecies, PetTemperaments, DogBreeds, DogCharacteristics, CatBreeds, CatCharacteristics
 from enumfields import EnumField
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
@@ -32,11 +32,10 @@ class User(models.Model):
     care_preference = ArrayField(
         models.CharField(
         choices=[(tag.name, tag.value) for tag in CarePreferences], max_length=100),
-        default=[CarePreferences.ADOPTING.value,  CarePreferences.FOSTERING.value],
+
     )
     preferred_species = ArrayField(
         models.CharField(choices=[(tag.name, tag.value) for tag in PetSpecies], max_length=100),
-        default=[PetSpecies.DOG.value, PetSpecies.CAT.value],
     )
 
     # Dog preferences
@@ -94,10 +93,111 @@ class User(models.Model):
     )
 
     address1 = models.CharField(max_length=255)
-    address2 = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    zip = models.PositiveIntegerField(default=0)
+    address2 = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=50)
+    postcode = models.CharField(max_length=20)
+    country = models.CharField(max_length=50)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
+class Dog(models.Model):
+    organization_id = models.CharField(max_length=255) # need to make foreign key when 
+    organization_animal_id = models.CharField(max_length=50)
+    url = models.URLField(max_length=200)
+    species = models.CharField(max_length=3, default='Dog')
+    primary_breed = models.CharField(
+        max_length=50,
+        choices=[(tag.value, tag.name) for tag in DogBreeds]
+    )
+    secondary_breed = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        choices=[(tag.value, tag.name) for tag in DogBreeds]
+    )
+    mixed_breed = models.BooleanField(default=False)
+    unknown_breed = models.BooleanField(default=False)
+    primary_color = models.CharField(
+        max_length=50,
+        choices=[(tag.value, tag.name) for tag in DogColors]
+    )
+    secondary_color = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        choices=[(tag.value, tag.name) for tag in DogColors]
+    )
+    tertiary_color = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        choices=[(tag.value, tag.name) for tag in DogColors]
+    )
+    age = models.IntegerField()
+    gender = models.CharField(max_length=50, choices=[(tag.value, tag.name) for tag in PetGender])
+    size = models.CharField(max_length=50, choices=[(tag.value, tag.name) for tag in PetSizes])
+    coat = models.CharField(max_length=50, choices=[(tag.value, tag.name) for tag in DogCoats])
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    primary_photo_small = models.URLField()
+    primary_photo_medium = models.URLField()
+    primary_photo_large = models.URLField()
+    primary_photo_full = models.URLField()
+    small_photo_urls = ArrayField(
+        models.URLField(),
+        default=None,
+        null=True,
+        blank=True,
+    )
+    medium_photo_urls = ArrayField(
+        models.URLField(),
+        default=None,
+        null=True,
+        blank=True,
+    )
+    large_photo_urls = ArrayField(
+        models.URLField(),
+        default=None,
+        null=True,
+        blank=True,
+    )
+    full_photo_urls = ArrayField(
+        models.URLField(),
+        default=None,
+        null=True,
+        blank=True,
+    )
+    video_urls = ArrayField(
+        models.URLField(),
+        null=True,
+        blank=True,
+    )
+    status = models.CharField(max_length=50, choices=[(tag.value, tag.name) for tag in PetStatuses])
+    spayed_neutered = models.BooleanField()
+    house_trained = models.BooleanField()
+    declawed = models.BooleanField()
+    special_needs = models.BooleanField(null=True)
+    shots_current = models.BooleanField()
+    good_with_children = models.BooleanField(null=True)
+    good_with_dogs = models.BooleanField(null=True)
+    good_with_cats = models.BooleanField(null=True)
+    tags = ArrayField(
+        models.CharField(max_length=50),
+        null=True,
+        blank=True,
+    )
+    contact_email = models.EmailField()
+    contact_phone = models.CharField(max_length=20, null=True)
+
+    address1 = models.CharField(max_length=255, null=True)
+    address2 = models.CharField(max_length=255, null=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=50)
+    postcode = models.CharField(max_length=20)
+    country = models.CharField(max_length=50)
+    distance = models.FloatField(blank=True, null=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
