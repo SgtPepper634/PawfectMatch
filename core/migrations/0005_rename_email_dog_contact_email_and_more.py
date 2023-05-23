@@ -68,7 +68,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='postcode',
-            field=models.CharField(default=django.utils.timezone.now, max_length=20),
+            field=models.CharField(max_length=20),
             preserve_default=False,
         ),
         migrations.AlterField(
